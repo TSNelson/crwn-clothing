@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
 
+// Components
+import HomePage from './components/homepage/homepage';
+
 function App() {
   return (
     <div>
-      crwn clothing web store
+      <HomePage />
     </div>
   );
 }
