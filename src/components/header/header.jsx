@@ -1,6 +1,7 @@
 import React from 'react';
 import { auth } from '../../firebase/firebase.utils';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import './header.scss';
 
@@ -22,4 +23,8 @@ const Header = ({ currentUser }) => {
   </div>);
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return { currentUser: state.user.currentUser }
+}
+// connect is a higher order component that passes props into another component from redux
+export default connect(mapStateToProps)(Header);
