@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 // react-router-dom enables routing behaviors in a react SPA
 // named component renders for matching path
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // Actions
@@ -50,7 +50,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/shop' component={ShopPage} />
-          <Route exact path='/sign-in' component={SignInPage} />
+          <Route exact path='/sign-in' render={() => this.props.currentUser ? <Redirect to='/' /> : <SignInPage />} />
         </Switch>
       </div>
     );
@@ -58,8 +58,12 @@ class App extends React.Component {
   
 }
 
+const mapStateToProps = ({ user }) => {
+  return { currentUser: user.currentUser}
+}
+
 const mapDispatchToProps = dispatch => {
   return { setCurrentUser: user => dispatch(setCurrentUser(user)) }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
